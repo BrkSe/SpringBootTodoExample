@@ -19,10 +19,10 @@ public class Todo {
     public Todo() {
     }
 
-    public Todo(String title, String detail, boolean complete) {
+    public Todo(String title, String detail) {
         this.title = title;
         this.detail = detail;
-        this.complete = complete;
+        this.complete = false;
     }
 
     public Long getId() {
