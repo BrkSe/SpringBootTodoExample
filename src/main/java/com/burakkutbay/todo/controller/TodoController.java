@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 
@@ -16,18 +17,20 @@ public class TodoController {
     @Autowired
     private TodoRepository todoRepository;
 
+
     @RequestMapping("/")
     public String index(Model model) {
         ArrayList todoList = (ArrayList) todoRepository.findAll();
         model.addAttribute("newtodo", new Todo());
         model.addAttribute("todos", todoList);
         return "index";
+
     }
 
-    @RequestMapping("/add")
-    public String addTodo(@ModelAttribute Todo todo) {
-        Todo todo1 = new Todo(todo.getTitle(), todo.getTitle());
-        todoRepository.save(todo1);
+    @RequestMapping(value = "/add")
+    public String addTodo(@ModelAttribute Todo todo, Model model) {
+        todoRepository.save(todo);
+        model.addAttribute("succesalertdiv",false);
         return "redirect:/";
     }
 
@@ -46,5 +49,4 @@ public class TodoController {
     public String deleteTodo(@ModelAttribute ArrayList<Todo> todoList) {
         return "redirect:/";
     }
-
 }
