@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Todo App by Burak KUTBAY</title>
@@ -10,68 +10,61 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <style>
-        /* Remove the navbar's default margin-bottom and rounded borders */
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
 
-        }
-        body{
+
+
+
+    <style>
+        body {
             font-family: "Open Sans", Arial;
         }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Todo App</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span></span> Burak Kutbay</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div style="background: #c1c1c2;">
+<div style="background: #4dd5e7;">
     <div class="container text-center">
-        <h1>Todo Application</h1>
-        <p>Burak Kutbay Computer Engineer</p>
+        <h1 style="font-weight: bolder">Todo Application</h1>
+        <p style="font-weight: inherit">Burak Kutbay Computer Engineer</p>
     </div>
 </div>
 
 <div class="container text-center">
-    <h3>Create Todo</h3><br>
+    <hr/>
+    <h3>Create Todo</h3>
+    <hr/>
+    <br>
     <div>
-        <form>
+        <form  th:action="@{/add}" method="post">
 
             <div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" placeholder="Title">
+                    <input type="text" id="title" name="title" th:value="${newtodo.title}" class="form-control" placeholder="Title">
                 </div>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Detail">
+                    <input type="text" id="detail" name="detail" th:value="${newtodo.detail}" class="form-control" placeholder="Detail">
                 </div>
                 <div class="col-auto">
                     <button type="submit" class="btn btn-primary" style="alignment: left!important;">Save</button>
                 </div>
             </div>
-        </form>
+            <div class="alert alert-success alert-dismissible" th:if="${succesalertdiv}">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong> Todo Save.
+            </div>
+        </form><br>
+
     </div>
 </div>
+
+
 <div class="container">
+    <hr/>
     <center>
-        <h3>My Todos</h3></center><br>
+        <h3>My Todos</h3></center>
+    <hr/>
+    <br>
     <div>
+
         <table class="table">
             <thead>
             <tr>
@@ -98,7 +91,9 @@
             </tr>
             </tbody>
         </table>
-    </div></div><br>
+    </div>
+</div>
+<br>
 
 <br><br>
 </body>
