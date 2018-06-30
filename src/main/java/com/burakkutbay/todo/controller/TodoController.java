@@ -30,4 +30,21 @@ public class TodoController {
         todoRepository.save(todo1);
         return "redirect:/";
     }
+
+    @RequestMapping("/update")
+    public String updateTodo(@ModelAttribute ArrayList<Todo> todoList) {
+        for (Todo todo1 : todoList) {
+            Todo todo = new Todo(todo1.getDetail(), todo1.getTitle());
+            todo.setComplete(todo1.isComplete());
+            todo.setId(todo1.getId());
+            todoRepository.save(todo);
+        }
+        return "redirect:/";
+    }
+
+    @RequestMapping("/delete")
+    public String deleteTodo(@ModelAttribute ArrayList<Todo> todoList) {
+        return "redirect:/";
+    }
+
 }
