@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class TodoController {
@@ -17,20 +19,18 @@ public class TodoController {
     @Autowired
     private TodoRepository todoRepository;
 
-
     @RequestMapping("/")
     public String index(Model model) {
-        ArrayList todoList = (ArrayList) todoRepository.findAll();
+        List<Todo> todoList = (List<Todo>) todoRepository.findAll();
         model.addAttribute("newtodo", new Todo());
         model.addAttribute("todos", todoList);
         return "index";
 
     }
 
-    @RequestMapping(value = "/add")
-    public String addTodo(@ModelAttribute Todo todo, Model model) {
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String addTodo(@ModelAttribute Todo todo, Model model,HttpServletRequest request) {
         todoRepository.save(todo);
-        model.addAttribute("succesalertdiv",false);
         return "redirect:/";
     }
 
