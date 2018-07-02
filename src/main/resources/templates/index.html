@@ -73,6 +73,7 @@
                 <th>Title</th>
                 <th>Detail</th>
                 <th>Complete</th>
+                <th>Operation</th>
             </tr>
             </thead>
             <tbody>
@@ -81,6 +82,7 @@
                     <td th:text="${todo.title}"></td>
                     <td th:text="${todo.detail}"></td>
                     <td><center><input type="checkbox" th:checked="${todo.complete} == true"/></center></td>
+                    <td><button type="button" class="btn btn-danger">Delete</button></td>
                 </tr>
             </tbody>
         </table>
