@@ -11,11 +11,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jq-3.3.1/jszip-2.5.0/dt-1.10.18/af-2.3.0/b-1.5.2/b-colvis-1.5.1/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.4.0/r-2.2.2/rg-1.0.3/rr-1.2.4/sc-1.5.0/sl-1.2.6/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/v/bs/jq-3.3.1/jszip-2.5.0/dt-1.10.18/af-2.3.0/b-1.5.2/b-colvis-1.5.1/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.4.0/r-2.2.2/rg-1.0.3/rr-1.2.4/sc-1.5.0/sl-1.2.6/datatables.min.css"/>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/jq-3.3.1/jszip-2.5.0/dt-1.10.18/af-2.3.0/b-1.5.2/b-colvis-1.5.1/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.4.0/r-2.2.2/rg-1.0.3/rr-1.2.4/sc-1.5.0/sl-1.2.6/datatables.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/bs/jq-3.3.1/jszip-2.5.0/dt-1.10.18/af-2.3.0/b-1.5.2/b-colvis-1.5.1/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.4.0/r-2.2.2/rg-1.0.3/rr-1.2.4/sc-1.5.0/sl-1.2.6/datatables.min.js"></script>
 
     <style>
         body {
@@ -66,26 +68,27 @@
     <hr/>
     <br>
     <div>
-
-        <table class="table table-bordered table-striped" id="todoItems" name="todoItems">
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Detail</th>
-                <th>Complete</th>
-                <th>Operation</th>
-            </tr>
-            </thead>
-            <tbody>
+            <table class="table table-bordered table-striped" id="todoItems" name="todoItems">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Detail</th>
+                    <th>Complete</th>
+                    <th>Operation</th>
+                </tr>
+                </thead>
+                <tbody>
                 <tr data-th-each="todo : ${todos}">
                     <input hidden="hidden" name="id" th:value="${todo.id}"/>
                     <td th:text="${todo.title}"></td>
                     <td th:text="${todo.detail}"></td>
-                    <td><center><input type="checkbox" th:checked="${todo.complete} == true"/></center></td>
-                    <td><button type="button" class="btn btn-danger">Delete</button></td>
+                    <td><a href="" class="btn btn-info">Completed</a>
+                        <center><input type="checkbox" th:checked="${todo.complete} == true"/></center>
+                    </td>
+                    <td><a th:href="@{/delete?id=}+${todo.id}" class="btn btn-danger">Delete</a></td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
     </div>
 </div>
 <br>
@@ -93,15 +96,15 @@
 <br><br>
 <script>
 
-    $(document).ready(function() {
-        $('#todoItems').DataTable( {
+    $(document).ready(function () {
+        $('#todoItems').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ],
             "ordering": false
-        } );
-    } );
+        });
+    });
 </script>
 </body>
 </html>
