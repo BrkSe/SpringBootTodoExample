@@ -7,7 +7,7 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600" rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
@@ -39,7 +39,7 @@
     <hr/>
     <br>
     <div>
-        <form th:action="@{/add}" method="post">
+        <form th:action="@{/}" method="post">
 
             <div>
                 <div class="col-sm-4">
@@ -66,29 +66,39 @@
     <center>
         <h3>My Todos</h3></center>
     <hr/>
+    <div class="progress">
+        <div class="progress-bar progress-bar-info" role="progressbar" th:attr="aria-valuenow=${percentTask}"
+             aria-valuemin="0" aria-valuemax="100" th:style="'width:'+ ${percentTask}+'%;'">
+            <span th:text="${percentTask}"/>% Completed Tasks
+        </div>
+    </div>
     <br>
+    <div class="alert alert-success alert-dismissible" th:if="*{percentTask}" >
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> Indicates a successful or positive action.
+    </div>
     <div>
-            <table class="table table-bordered table-striped" id="todoItems" name="todoItems">
-                <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Detail</th>
-                    <th>Complete</th>
-                    <th>Operation</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr data-th-each="todo : ${todos}">
-                    <input hidden="hidden" name="id" th:value="${todo.id}"/>
-                    <td th:text="${todo.title}"></td>
-                    <td th:text="${todo.detail}"></td>
-                    <td><a href="" class="btn btn-info">Completed</a>
-                        <center><input type="checkbox" th:checked="${todo.complete} == true"/></center>
-                    </td>
-                    <td><a th:href="@{/delete?id=}+${todo.id}" class="btn btn-danger">Delete</a></td>
-                </tr>
-                </tbody>
-            </table>
+        <table class="table table-bordered table-striped" id="todos" name="todos">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Detail</th>
+                <th>Complete</th>
+                <th>Operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="todo : ${todos}">
+                <input hidden="hidden" name="id" th:value="${todo.id}"/>
+                <td th:text="${todo.title}"><input hidden="hidden" name="title" th:value="${todo.title}"/></td>
+                <td th:text="${todo.detail}"><input hidden="hidden" name="detail" th:value="${todo.detail}"/></td>
+                <td><a th:href="@{/update?id=}+${todo.id}" class="btn btn-info" th:if="${todo.complete == false}">Complete
+                    Task</a>
+                    <a th:href="@{/update?id=}+${todo.id}" class="btn btn-success" th:if="${todo.complete == true}">Task Completed</a></td>
+                <td><a th:href="@{/delete?id=}+${todo.id}" class="btn btn-danger">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 <br>
@@ -97,7 +107,7 @@
 <script>
 
     $(document).ready(function () {
-        $('#todoItems').DataTable({
+        $('#todos').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
