@@ -72,8 +72,13 @@ public class TodoController {
     public String updateTodo(@RequestParam("id") Long id) {
         Todo todo = todoRepository.findById(id).get();
         if (todo.isComplete()) {
+            todo.setCompletedDate(null);
             todo.setComplete(false);
         } else {
+            ///
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = new Date();
+            todo.setCompletedDate(date);
             todo.setComplete(true);
         }
         todoRepository.save(todo);
