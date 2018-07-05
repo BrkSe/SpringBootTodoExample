@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -47,6 +50,9 @@ public class TodoController {
     //@RequestMapping(value = "/add", method = RequestMethod.POST)
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String addTodo(@ModelAttribute Todo todo, Model model, HttpServletRequest request) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        todo.setCreatedDate(date);
         todoRepository.save(todo);
         return "redirect:/";
     }
