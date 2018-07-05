@@ -84,6 +84,7 @@
                 <th>Title</th>
                 <th>Detail</th>
                 <th>Created Date</th>
+                <th>Completed Date</th>
                 <th>Complete</th>
                 <th>Operation</th>
             </tr>
@@ -94,6 +95,7 @@
                 <td th:text="${todo.title}"><input hidden="hidden" name="title" th:value="${todo.title}"/></td>
                 <td th:text="${todo.detail}"><input hidden="hidden" name="detail" th:value="${todo.detail}"/></td>
                 <td th:text="${#dates.format(todo.createdDate, 'dd-MM-yyyy HH:mm')}"><input hidden="hidden" name="detail" th:value="${todo.detail}"/></td>
+                <td th:text="${#dates.format(todo.completedDate, 'dd-MM-yyyy HH:mm')}"><input hidden="hidden" name="detail" th:value="${todo.detail}"/></td>
                 <td><a th:href="@{/update?id=}+${todo.id}" class="btn btn-info" th:if="${todo.complete == false}">Complete
                     Task</a>
                     <a th:href="@{/update?id=}+${todo.id}" class="btn btn-success" th:if="${todo.complete == true}">Task Completed</a></td>
@@ -112,7 +114,24 @@
         $('#todos').DataTable({
             dom: 'Bfrtip',
             buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: [ 0, 1,2,3 ]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: [ 0, 1,2,3 ]
+                    }
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: [ 0, 1,2,3]
+                    }
+                }
             ],
             "order": [2,'desc']
 
