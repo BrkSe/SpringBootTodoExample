@@ -17,6 +17,7 @@ public class Todo {
     private String detail;
     private boolean complete;
     private Date createdDate;
+    private Date completedDate;
 
     public Todo() {
     }
@@ -67,6 +68,7 @@ public class Todo {
                 ", detail='" + detail + '\'' +
                 ", complete=" + complete +
                 ", createdDate=" + createdDate +
+                ", completedDate=" + completedDate +
                 '}';
     }
 
@@ -76,5 +78,13 @@ public class Todo {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Date getCompletedDate() {
+        return completedDate;
+    }
+
+    public void setCompletedDate(Date completedDate) {
+        this.completedDate = completedDate;
     }
 }
